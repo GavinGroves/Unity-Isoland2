@@ -35,10 +35,16 @@ public class TransitionManager : Singleton<TransitionManager>
         yield return Fade(0);
     }
 
+    /// <summary>
+    /// 淡入淡出场景
+    /// </summary>
+    /// <param name="targetAlpha">1黑，0透明</param>
+    /// <returns></returns>
     private IEnumerator Fade(float targetAlpha)
     {
         isFade = true;
         fadeCanvasGroup.blocksRaycasts = true;
+        // 速度=路程/时间
         float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / fadeDuration;
         while (!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))
         {

@@ -17,10 +17,15 @@ public class CursorManager : MonoBehaviour
 
         if (canClick && Input.GetMouseButtonDown(0))
         {
+            //检测鼠标互动情况
             ClickAction(ObjectAtMousePosition().gameObject);
         }
     }
 
+    /// <summary>
+    /// 互动-标签Tag判断
+    /// </summary>
+    /// <param name="clickObject">点击对应物体</param>
     private void ClickAction(GameObject clickObject)
     {
         switch (clickObject.tag)
