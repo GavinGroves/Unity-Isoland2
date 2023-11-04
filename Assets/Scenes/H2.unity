@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 495221067}
   - component: {fileID: 495221066}
   m_Layer: 0
-  m_Name: LeftMoveCollider
+  m_Name: Teleport to H1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 1473006752}
   - component: {fileID: 1473006751}
   m_Layer: 0
-  m_Name: RightMoveCollider
+  m_Name: Teleport to H3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
