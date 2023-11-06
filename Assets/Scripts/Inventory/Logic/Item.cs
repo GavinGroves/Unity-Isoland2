@@ -5,7 +5,7 @@ using Utilities;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField]private ItemName itemName;
+    public ItemName itemName;
 
     public void AddItemToTooltip()
     {

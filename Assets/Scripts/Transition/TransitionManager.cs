@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using EventHandler = Utilities.EventHandler;
 
 public class TransitionManager : Singleton<TransitionManager>
 {
@@ -10,6 +12,11 @@ public class TransitionManager : Singleton<TransitionManager>
     [SerializeField] private float fadeDuration;
 
     private bool isFade;
+
+    private void Start()
+    {
+        ChangeScene(String.Empty, SceneManager.GetSceneAt(1).name);
+    }
 
     public void Transition(string from, string to)
     {
@@ -20,10 +27,17 @@ public class TransitionManager : Singleton<TransitionManager>
     private IEnumerator ChangeScene(string from, string to)
     {
         yield return Fade(1);
-        yield return SceneManager.UnloadSceneAsync(from);
-        yield return SceneManager.LoadSceneAsync(to, LoadSceneMode.Additive);
 
+        if (from != String.Empty)
+        {
+            EventHandler.CallSaveBeforeEvent();
+            yield return SceneManager.UnloadSceneAsync(from);
+        }
+        
+        yield return SceneManager.LoadSceneAsync(to, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
+
+        EventHandler.CallSaveAfterEvent();
         yield return Fade(0);
     }
 
