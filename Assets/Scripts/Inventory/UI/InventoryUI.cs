@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using EventHandler = Utilities.EventHandler;
+using Utilities;
 
 public class InventoryUI : MonoBehaviour
 {
