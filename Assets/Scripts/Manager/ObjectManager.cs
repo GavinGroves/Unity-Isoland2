@@ -22,8 +22,7 @@ public class ObjectManager : MonoBehaviour
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
     }
-
-
+    
     private void OnBeforeSceneUnloadEvent()
     {
         foreach (var item in FindObjectsOfType<Item>())
