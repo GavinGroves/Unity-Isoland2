@@ -26,6 +26,9 @@ public class CursorManager : MonoBehaviour
             case "Teleport":
                 targetObj.gameObject.GetComponent<Teleport>().TeleportToScene();
                 break;
+            case "Item":
+                targetObj.gameObject.GetComponent<Item>().AddItemToTooltip();
+                break;
         }
     }
 
