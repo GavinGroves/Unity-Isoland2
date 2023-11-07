@@ -23,6 +23,7 @@ public class Interactive : MonoBehaviour
     /// </summary>
     protected virtual void OnClickedAction()
     {
+
     }
 
     public virtual void EmptyClicked()

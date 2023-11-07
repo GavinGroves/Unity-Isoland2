@@ -4,4 +4,10 @@ namespace Utilities
     {
         None,Key,Ticket
     }
+
+    public enum GlobalTag
+    {
+        Teleport,Item,Interactive
+    }
+    
 }

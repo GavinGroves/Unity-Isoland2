@@ -8,6 +8,7 @@ using Utilities;
 public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Image itemImage;
+    public ItemTooltip itemTooltip;
     private ItemDetails currentItem;
     private bool isSelected;
 
@@ -32,9 +33,15 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (gameObject.activeInHierarchy)
+        {
+            itemTooltip.gameObject.SetActive(true);
+            itemTooltip.UpdateItemName(currentItem.itemName);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        itemTooltip.gameObject.SetActive(false);
     }
 }

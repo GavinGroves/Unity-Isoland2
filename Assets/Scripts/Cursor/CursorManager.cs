@@ -8,7 +8,7 @@ using EventHandler = Utilities.EventHandler;
 public class CursorManager : MonoBehaviour
 {
     public RectTransform hand;
-    
+
     //获取鼠标点击为位置，屏幕坐标 -> 世界坐标
     private Vector3 MouseWorldPos =>
         Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
@@ -22,15 +22,19 @@ public class CursorManager : MonoBehaviour
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
     }
 
-
     private void OnDisable()
     {
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
     }
-    
+
     private void Update()
     {
         canClick = ObjectAtMousePosition();
+
+        if (hand.gameObject.activeInHierarchy)
+        {
+            hand.position = Input.mousePosition;
+        }
 
         if (canClick && Input.GetMouseButtonDown(0))
         {
@@ -46,30 +50,32 @@ public class CursorManager : MonoBehaviour
         {
             currentItem = itemDetails.itemName;
         }
-        hand.gameObject.SetActive(true);
+
+        hand.gameObject.SetActive(holdItem);
     }
-    
+
     /// <summary>
     /// 互动-标签Tag判断
     /// </summary>
     /// <param name="clickObject">点击对应物体</param>
     private void ClickAction(GameObject clickObject)
     {
-        switch (clickObject.tag)
+        var globalTag = Enum.Parse<GlobalTag>(clickObject.tag);
+        switch (globalTag)
         {
-            case "Teleport":
+            case GlobalTag.Teleport:
                 var teleport = clickObject.GetComponent<Teleport>();
                 teleport?.TeleportToScene();
                 break;
-            case "Item":
+            case GlobalTag.Item:
                 var item = clickObject.GetComponent<Item>();
                 item?.ItemClicked();
                 break;
-            case "Interactive":
+            case GlobalTag.Interactive:
                 var interactive = clickObject.GetComponent<Interactive>();
-                if(holdItem)
+                if (holdItem)
                     interactive?.CheckItem(currentItem);
-                else 
+                else
                     interactive?.EmptyClicked();
                 break;
         }
