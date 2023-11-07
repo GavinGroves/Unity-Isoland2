@@ -8,6 +8,7 @@ using EventHandler = Utilities.EventHandler;
 
 public class TransitionManager : Singleton<TransitionManager>
 {
+    [SceneName] [SerializeField] private string startScene;
     [SerializeField] private CanvasGroup fadePanelGroup;
     [SerializeField] private float fadeDuration;
 
@@ -15,7 +16,7 @@ public class TransitionManager : Singleton<TransitionManager>
 
     private void Start()
     {
-        ChangeScene(String.Empty, SceneManager.GetSceneAt(1).name);
+        StartCoroutine(ChangeScene(string.Empty, startScene));
     }
 
     public void Transition(string from, string to)
@@ -28,12 +29,12 @@ public class TransitionManager : Singleton<TransitionManager>
     {
         yield return Fade(1);
 
-        if (from != String.Empty)
+        if (from != string.Empty)
         {
             EventHandler.CallSaveBeforeEvent();
             yield return SceneManager.UnloadSceneAsync(from);
         }
-        
+
         yield return SceneManager.LoadSceneAsync(to, LoadSceneMode.Additive);
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
 

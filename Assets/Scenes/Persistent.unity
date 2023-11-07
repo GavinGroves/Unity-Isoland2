@@ -628,6 +628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126d16d0177f45d42b6aacb875f1de5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startScene: H2
   fadePanelGroup: {fileID: 1022224363}
   fadeDuration: 0.3
 --- !u!4 &1972485572
