@@ -14,11 +14,39 @@ public class InventoryManager : Singleton<InventoryManager>
     private void OnEnable()
     {
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
+        EventHandler.ChangeItemEvent += OnChangeItemEvent;
+        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.ItemUsedEvent -= OnItemUsedEvent;
+        EventHandler.ChangeItemEvent -= OnChangeItemEvent;
+        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+    }
+
+    private void OnAfterSceneLoadedEvent()
+    {
+        if (itemList.Count == 0)
+        {
+            EventHandler.CallUpdateUIEvent(null, -1);
+        }
+        else
+        {
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]), i);
+            }
+        }
+    }
+
+    private void OnChangeItemEvent(int index)
+    {
+        if (index >= 0 && index < itemList.Count)
+        {
+            var item = itemData.GetItemDetails(itemList[index]);
+            EventHandler.CallUpdateUIEvent(item, index);
+        }
     }
 
     private void OnItemUsedEvent(ItemName itemName)
