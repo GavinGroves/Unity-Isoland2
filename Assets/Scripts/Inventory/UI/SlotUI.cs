@@ -22,6 +22,7 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void SetEmpty()
     {
+        isSelected = false;
         gameObject.SetActive(false);
     }
 

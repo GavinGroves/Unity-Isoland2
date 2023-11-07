@@ -13,17 +13,18 @@ public class Interactive : MonoBehaviour
         if (itemName == requireItem && !isDone)
         {
             isDone = true;
-            //使用这个物品，移除物品
+            //使用这个物品，
             OnClickedAction();
+            //移除物品
+            EventHandler.CallItemUsedEvent(itemName);
         }
     }
 
     /// <summary>
-    /// 默认是正确的物品的情况执行
+    /// 默认是正确的物品情况执行
     /// </summary>
     protected virtual void OnClickedAction()
     {
-
     }
 
     public virtual void EmptyClicked()
