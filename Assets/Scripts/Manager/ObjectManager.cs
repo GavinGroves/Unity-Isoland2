@@ -11,19 +11,21 @@ public class ObjectManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.SaveBeforeEvent += OnSaveBeforeEvent;
-        EventHandler.SaveAfterEvent += OnSaveAfterEvent;
+        EventHandler.SaveBeforeSceneEvent += OnSaveBeforeSceneEvent;
+        EventHandler.SaveAfterSceneEvent += OnSaveAfterSceneEvent;
         EventHandler.UpdateUIEvent += OnUpdateUIEvent;
     }
 
     private void OnDisable()
     {
-        EventHandler.SaveBeforeEvent -= OnSaveBeforeEvent;
-        EventHandler.SaveAfterEvent -= OnSaveAfterEvent;
+        EventHandler.SaveBeforeSceneEvent -= OnSaveBeforeSceneEvent;
+        EventHandler.SaveAfterSceneEvent -= OnSaveAfterSceneEvent;
         EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
     }
 
-    private void OnSaveBeforeEvent()
+    #region 切换场景前后 物品的保存与读取
+
+    private void OnSaveBeforeSceneEvent()
     {
         foreach (var item in FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -32,7 +34,7 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    private void OnSaveAfterEvent()
+    private void OnSaveAfterSceneEvent()
     {
         foreach (var item in FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
@@ -43,7 +45,12 @@ public class ObjectManager : MonoBehaviour
         }
     }
 
-    private void OnUpdateUIEvent(ItemDetail itemDetail, int index)
+    #endregion
+    
+    /// <summary>
+    /// 场景物品点击后隐藏 , 所以 保存物品的字典里 物品状态要设置为FALSE
+    /// </summary>
+    private void OnUpdateUIEvent(ItemDetail itemDetail, int arg)
     {
         if (itemDetail != null)
         {

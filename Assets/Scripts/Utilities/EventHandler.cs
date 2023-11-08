@@ -11,18 +11,18 @@ namespace Utilities
             UpdateUIEvent?.Invoke(itemDetail, index);
         }
 
-        public static event Action SaveBeforeEvent;
+        public static event Action SaveBeforeSceneEvent;
 
         public static void CallSaveBeforeEvent()
         {
-            SaveBeforeEvent?.Invoke();
+            SaveBeforeSceneEvent?.Invoke();
         }
         
-        public static event Action SaveAfterEvent;
+        public static event Action SaveAfterSceneEvent;
 
         public static void CallSaveAfterEvent()
         {
-            SaveAfterEvent?.Invoke();
+            SaveAfterSceneEvent?.Invoke();
         }
     }
 }

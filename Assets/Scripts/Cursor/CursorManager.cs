@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 public class CursorManager : MonoBehaviour
 {
@@ -21,12 +22,13 @@ public class CursorManager : MonoBehaviour
 
     private void ClickAction(GameObject targetObj)
     {
-        switch (targetObj.tag)
+        var globalTag = Enum.Parse<GlobalTag>(targetObj.tag);
+        switch (globalTag)
         {
-            case "Teleport":
+            case GlobalTag.Teleport:
                 targetObj.gameObject.GetComponent<Teleport>().TeleportToScene();
                 break;
-            case "Item":
+            case GlobalTag.Item:
                 targetObj.gameObject.GetComponent<Item>().AddItemToTooltip();
                 break;
         }
