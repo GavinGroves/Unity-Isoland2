@@ -10,8 +10,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Button leftButton;
     [SerializeField] private Button rightButton;
     [SerializeField] private SlotUI slotUI;
-    private int currentIndex;//
-      
+    private int currentIndex; //
+
     private void OnEnable()
     {
         EventHandler.UpdateUIEvent += OnUpdateUIEvent;
@@ -38,6 +38,42 @@ public class InventoryUI : MonoBehaviour
         {
             currentIndex = index;
             slotUI.SetItem(itemDetail);
+
+            // 添加物品会显示最新添加的物品，所以左侧亮
+            if (index > 0)
+                leftButton.interactable = true;
+
+            if (index == -1)
+            {
+                leftButton.interactable = false;
+                rightButton.interactable = false;
+            }
         }
+    }
+
+    /// <summary>
+    /// 按键显隐判断
+    /// </summary>
+    /// <param name="amount">左-1，右+1</param>
+    public void SwitchItem(int amount)
+    {
+        var index = currentIndex + amount;
+        if (index < currentIndex)
+        {
+            leftButton.interactable = false;
+            rightButton.interactable = true;
+        }
+        else if (index > currentIndex)
+        {
+            leftButton.interactable = true;
+            rightButton.interactable = false;
+        }
+        else // 多于两个物体的情况
+        {
+            leftButton.interactable = true;
+            rightButton.interactable = true;
+        }
+
+        EventHandler.CallChangeItemEvent(index);
     }
 }
