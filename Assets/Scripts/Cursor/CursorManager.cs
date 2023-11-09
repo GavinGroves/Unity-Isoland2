@@ -14,16 +14,25 @@ public class CursorManager : MonoBehaviour
 
     private ItemName curentItem;
     private bool canClick;
-    private bool holdItem; // holding the obj ?
+    private bool holdItem; // Whether Or Not To Catch Something
 
     private void OnEnable()
     {
         EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
+        EventHandler.ItemUsedEvent += OnItemUsedEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
+        EventHandler.ItemUsedEvent -= OnItemUsedEvent;
+    }
+
+    private void OnItemUsedEvent(ItemName itemName)
+    {
+        curentItem = ItemName.None;
+        holdItem = false;
+        hand.gameObject.SetActive(false);
     }
 
     private void OnItemSelectedEvent(ItemDetail itemDetail, bool isSelected)

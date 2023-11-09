@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 408135628}
   - component: {fileID: 408135627}
   - component: {fileID: 408135629}
+  - component: {fileID: 408135630}
   m_Layer: 0
   m_Name: MailBox
   m_TagString: Interactive
@@ -360,6 +361,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7835732, y: 2.3474712}
   m_EdgeRadius: 0
+--- !u!114 &408135630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408135626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557feefcd89d49c43809341d448c0ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requireItem: 1
+  isDone: 0
+  spriteRenderer: {fileID: 408135627}
+  coll: {fileID: 408135629}
+  openImage: {fileID: 21300000, guid: b66acb8f919472c45a5a4e0f63ff6396, type: 3}
+  ticket: {fileID: 147228056}
 --- !u!1 &1438180200
 GameObject:
   m_ObjectHideFlags: 0

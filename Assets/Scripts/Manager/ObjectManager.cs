@@ -8,7 +8,8 @@ using EventHandler = Utilities.EventHandler;
 public class ObjectManager : MonoBehaviour
 {
     private Dictionary<ItemName, bool> itemObjDict = new Dictionary<ItemName, bool>();
-
+    private Dictionary<string, bool> interactiveStateDict = new Dictionary<string, bool>();
+    
     private void OnEnable()
     {
         EventHandler.SaveBeforeSceneEvent += OnSaveBeforeSceneEvent;
@@ -32,8 +33,21 @@ public class ObjectManager : MonoBehaviour
             if (!itemObjDict.ContainsKey(item.itemName))
                 itemObjDict.Add(item.itemName, item.gameObject.activeInHierarchy);
         }
-    }
 
+        foreach (var interObj in FindObjectsOfType<Interactive>())
+        {
+            Debug.Log(interObj.name);
+            if (interactiveStateDict.ContainsKey(interObj.name))
+            {
+                interactiveStateDict[interObj.name] = interObj.isDone;
+            }
+            else
+            {
+                interactiveStateDict.Add(interObj.name,interObj.isDone);
+            }
+        }
+    }
+    
     private void OnSaveAfterSceneEvent()
     {
         foreach (var item in FindObjectsByType<Item>(FindObjectsInactive.Include, FindObjectsSortMode.None))
@@ -42,6 +56,18 @@ public class ObjectManager : MonoBehaviour
                 itemObjDict.Add(item.itemName, item.gameObject.activeInHierarchy);
             else
                 item.gameObject.SetActive(itemObjDict[item.itemName]);
+        }
+        
+        foreach (var interObj in FindObjectsOfType<Interactive>())
+        {
+            if (interactiveStateDict.ContainsKey(interObj.name))
+            {
+                interObj.isDone = interactiveStateDict[interObj.name] ;
+            }
+            else
+            {
+                interactiveStateDict.Add(interObj.name,interObj.isDone);
+            }
         }
     }
 

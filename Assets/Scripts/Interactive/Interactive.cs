@@ -5,26 +5,29 @@ using Utilities;
 
 public class Interactive : MonoBehaviour
 {
-    [SerializeField] private ItemName requireItem;
-    [SerializeField] private bool isDone;
+    public ItemName requireItem;
+    public bool isDone;
 
     public void ClickItem(ItemName itemName)
     {
         if (itemName == requireItem && !isDone)
         {
             isDone = true;
-            //使用物品，背包移出物品
+            
+            //use Items
             OnClickedAction();
+
+            //Remove Used Items From The Backpack
+            EventHandler.CallItemUsedEvent(itemName);
         }
     }
-    
+
     protected virtual void OnClickedAction()
     {
-        
     }
 
     public virtual void EmptyClicked()
     {
-        Debug.Log("空点");
+        Debug.Log("EmptySpots");
     }
 }
