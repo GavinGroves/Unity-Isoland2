@@ -369,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c007218d5c21a5c4a9261394181b2f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: {fileID: 3085134365954335415}
 --- !u!4 &1310323991
 Transform:
   m_ObjectHideFlags: 0
@@ -530,7 +531,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1786179112
 RectTransform:
@@ -1035,6 +1036,7 @@ GameObject:
   - component: {fileID: 5204701815309129146}
   - component: {fileID: 5204701815309129124}
   - component: {fileID: 5204701815309129125}
+  - component: {fileID: 5204701815309129148}
   m_Layer: 5
   m_Name: ItemTooltip
   m_TagString: Untagged
@@ -1042,6 +1044,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &5204701815309129148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5204701815309129147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a6d550ee1c33b0449788418f399e7a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemNameText: {fileID: 5204701816273221789}
 --- !u!114 &5204701815646495040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,6 +1466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 5204701816104730722}
+  tooltip: {fileID: 5204701815309129148}
 --- !u!224 &5204701816273221778
 RectTransform:
   m_ObjectHideFlags: 0

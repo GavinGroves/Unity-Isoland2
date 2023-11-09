@@ -24,5 +24,12 @@ namespace Utilities
         {
             SaveAfterSceneEvent?.Invoke();
         }
+
+        public static event Action<ItemDetail, bool> ItemSelectedEvent;
+
+        public static void CallItemSelectedEvent(ItemDetail itemDetail,bool isSelected)
+        {
+            ItemSelectedEvent?.Invoke(itemDetail,isSelected);
+        }
     }
 }
