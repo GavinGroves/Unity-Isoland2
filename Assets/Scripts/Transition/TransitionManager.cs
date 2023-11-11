@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utilities;
 using EventHandler = Utilities.EventHandler;
 
 /// <summary>
@@ -16,15 +17,31 @@ public class TransitionManager : Singleton<TransitionManager>
     public float fadeDuration;
 
     private bool isFade;
+    private bool canTransition;
+
+    private void OnEnable()
+    {
+        EventHandler.GameStateChangedEvent += OnGameStateChangedEvent;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.GameStateChangedEvent -= OnGameStateChangedEvent;
+    }
 
     private void Start()
     {
         StartCoroutine(TransitionToScene(string.Empty, startScene));
     }
+    
+    private void OnGameStateChangedEvent(GameState gameState)
+    {
+        canTransition = gameState == GameState.Playing;
+    }
 
     public void Transition(string from, string to)
     {
-        if (!isFade)
+        if (!isFade && canTransition)
         {
             StartCoroutine(TransitionToScene(from, to));
         }

@@ -9,5 +9,9 @@ namespace Utilities
     {
         Teleport,Item,Interactive
     }
-    
+
+    public enum GameState
+    {
+        Pause,Playing
+    }
 }
