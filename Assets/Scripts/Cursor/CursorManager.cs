@@ -55,7 +55,7 @@ public class CursorManager : MonoBehaviour
 
         hand.gameObject.SetActive(holdItem);
     }
-    
+
     private void OnItemUsedEvent(ItemName obj)
     {
         currentItem = ItemName.None;
@@ -69,18 +69,18 @@ public class CursorManager : MonoBehaviour
     /// <param name="clickObject">点击对应物体</param>
     private void ClickAction(GameObject clickObject)
     {
-        var globalTag = Enum.Parse<GlobalTag>(clickObject.tag);
-        switch (globalTag)
+        // var globalTag = Enum.Parse<GlobalTag>(clickObject.tag);
+        switch (clickObject.tag)
         {
-            case GlobalTag.Teleport:
+            case Tags.T_Teleport:
                 var teleport = clickObject.GetComponent<Teleport>();
                 teleport?.TeleportToScene();
                 break;
-            case GlobalTag.Item:
+            case Tags.T_Item:
                 var item = clickObject.GetComponent<Item>();
                 item?.ItemClicked();
                 break;
-            case GlobalTag.Interactive:
+            case Tags.T_Interactive:
                 var interactive = clickObject.GetComponent<Interactive>();
                 if (holdItem)
                     interactive?.CheckItem(currentItem);
