@@ -10,5 +10,4 @@ public const string T_GameController = @"GameController";
 public const string T_Teleport = @"Teleport";
 public const string T_Item = @"Item";
 public const string T_Interactive = @"Interactive";
-public const string T_Test = @"Test";
 }

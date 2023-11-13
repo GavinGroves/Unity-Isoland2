@@ -156,6 +156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 6
+  isEmpty: 0
 --- !u!58 &117703102
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117703100}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -272,6 +274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 3
+  isEmpty: 0
 --- !u!58 &200096047
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -279,7 +283,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200096045}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -366,9 +370,10 @@ GameObject:
   - component: {fileID: 360590933}
   - component: {fileID: 360590932}
   - component: {fileID: 360590931}
+  - component: {fileID: 360590934}
   m_Layer: 0
-  m_Name: gearbg
-  m_TagString: Untagged
+  m_Name: Reset
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -472,6 +477,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &360590934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360590930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5270b20411e6048ad31b09abb41798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requireItem: 0
+  isDone: 0
 --- !u!1 &680758282
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 2
+  isEmpty: 0
 --- !u!58 &742641679
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -596,7 +617,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 742641677}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -716,7 +737,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff9ee21f907d054583e653345e5c35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameH2ASo: {fileID: 11400000, guid: 3f0c534b78dd88743886e332cee66fc2, type: 2}
+  OnFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1473006753}
+        m_TargetAssemblyTypeName: Teleport, Assembly-CSharp
+        m_MethodName: TeleportToScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  gameData: {fileID: 11400000, guid: 3f0c534b78dd88743886e332cee66fc2, type: 2}
   holderTransforms:
   - {fileID: 2100318824}
   - {fileID: 1644903275}
@@ -726,7 +762,7 @@ MonoBehaviour:
   - {fileID: 1539483806}
   - {fileID: 117703104}
   lineParent: {fileID: 1810323041}
-  linePrefab: {fileID: 4004246582158334339, guid: c7f957aeea340bd4eaaab112c061d0c1, type: 3}
+  linePrefab: {fileID: 4004246582158334341, guid: c7f957aeea340bd4eaaab112c061d0c1, type: 3}
   ballPrefab: {fileID: 2367881310000145665, guid: 9beb6164d5e62d34eb8688abcbf62766, type: 3}
 --- !u!1 &1068105998
 GameObject:
@@ -761,6 +797,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 4
+  isEmpty: 0
 --- !u!58 &1068106000
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -768,7 +806,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068105998}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1086,6 +1124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 5
+  isEmpty: 0
 --- !u!58 &1539483804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1093,7 +1133,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1539483802}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1202,6 +1242,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 1
+  isEmpty: 0
 --- !u!58 &1644903273
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1209,7 +1251,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1644903271}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1342,7 +1384,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100318821}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1432,3 +1474,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requireItem: 0
   isDone: 0
+  matchBall: 0
+  isEmpty: 0

@@ -7,7 +7,6 @@ TagManager:
   - Teleport
   - Item
   - Interactive
-  - Test
   layers:
   - Default
   - TransparentFX

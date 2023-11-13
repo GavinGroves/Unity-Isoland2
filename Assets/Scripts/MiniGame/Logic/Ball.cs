@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
 {
     private SpriteRenderer _spriteRenderer;
     public BallDetails ballDetails;
-    private bool isMatch;
+    public bool isMatch;
 
     private void Awake()
     {
@@ -27,12 +27,12 @@ public class Ball : MonoBehaviour
         }
     }
 
-    private void SetCorrect()
+    public void SetCorrect()
     {
         _spriteRenderer.sprite = ballDetails.correctSprite;
     }
 
-    private void SetWrong()
+    public void SetWrong()
     {
         _spriteRenderer.sprite = ballDetails.wrongSprite;
     }
