@@ -44,6 +44,8 @@ public class Holder : Interactive
                 //改变状态
                 this.isEmpty = true;
                 holder.isEmpty = false;
+                
+                EventHandler.CallCheckGameStateEvent();
             }
         }
     }

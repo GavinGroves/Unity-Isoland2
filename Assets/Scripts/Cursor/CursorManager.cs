@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utilities;
 using EventHandler = Utilities.EventHandler;
 
@@ -37,6 +38,8 @@ public class CursorManager : MonoBehaviour
         {
             hand.position = Input.mousePosition;
         }
+
+        if (InteractWithUI()) return;
 
         if (canClick && Input.GetMouseButtonDown(0))
         {
@@ -96,5 +99,13 @@ public class CursorManager : MonoBehaviour
     private Collider2D ObjectAtMousePosition()
     {
         return Physics2D.OverlapPoint(MouseWorldPos);
+    }
+
+    private bool InteractWithUI()
+    {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return true;
+
+        return false;
     }
 }

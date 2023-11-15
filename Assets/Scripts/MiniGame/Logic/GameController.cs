@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Tools;
 using UnityEngine;
 using UnityEngine.Events;
@@ -48,6 +45,8 @@ public class GameController : Singleton<GameController>
         {
             holder.GetComponent<Collider2D>().enabled = false;
         }
+        
+        EventHandler.CallGamePassEvent(gameData.gameName);
         OnFinish?.Invoke();
     }
 
@@ -58,6 +57,7 @@ public class GameController : Singleton<GameController>
             if (holder.childCount > 0)
                 Destroy(holder.GetChild(0).gameObject);
         }
+        
         CreateBall();
     }
 

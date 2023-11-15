@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tools;
 using UnityEngine;
 using Utilities;
 
 [CreateAssetMenu(menuName = "Mini Game Data/GameH2A_SO_SO", fileName = "GameH2A_SO")]
 public class GameH2A_SO : ScriptableObject
 {
+    [SceneName] public string gameName;
     [Header("球的名字和对应图片")] public List<BallDetails> ballDetailsList;
 
     [Header("游戏逻辑数据")] [Header("线的位置 点到点")]
