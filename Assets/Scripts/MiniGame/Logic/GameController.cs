@@ -8,6 +8,7 @@ public class GameController : Singleton<GameController>
 {
     public UnityEvent OnFinish;
     [Header("游戏数据")] public GameH2A_SO gameData;
+    public GameH2A_SO[] gameDataArray;
 
     public Transform[] holderTransforms;
 
@@ -99,5 +100,12 @@ public class GameController : Singleton<GameController>
             holderTransforms[i].GetComponent<Holder>().isEmpty = false;
             ball.SetBall(gameData.GetBallDetails(gameData.startBallOrder[i]));
         }
+    }
+
+    public void SetGameWeekData(int week)
+    {
+        gameData = gameDataArray[week];
+        DrawLine();
+        CreateBall();
     }
 }

@@ -2,15 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utilities;
 using EventHandler = Utilities.EventHandler;
 
 public class GameManager : MonoBehaviour
 {
     private Dictionary<string, bool> miniGameStateDict = new Dictionary<string, bool>();
+    private int gameWeek;
+    private GameController currentGameController;
 
     void Awake()
     {
+        SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
         EventHandler.CallGameStateChangedEvent(GameState.Playing);
     }
 
@@ -18,12 +22,20 @@ public class GameManager : MonoBehaviour
     {
         EventHandler.AfterSceneLoadedEvent += AfterSceneLoadedEvent;
         EventHandler.GamePassEvent += OnGamePassEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.AfterSceneLoadedEvent -= AfterSceneLoadedEvent;
         EventHandler.GamePassEvent -= OnGamePassEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+    }
+
+    private void OnStartNewGameEvent(int gameWeek)
+    {
+        this.gameWeek = gameWeek;
+        miniGameStateDict.Clear();
     }
 
     private void OnGamePassEvent(string gameName)
@@ -41,5 +53,8 @@ public class GameManager : MonoBehaviour
                 miniGame.UpdateMiniGameState();
             }
         }
+
+        currentGameController = FindObjectOfType<GameController>();
+        currentGameController?.SetGameWeekData(gameWeek);
     }
 }

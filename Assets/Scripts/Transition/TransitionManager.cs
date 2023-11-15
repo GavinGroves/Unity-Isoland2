@@ -22,21 +22,28 @@ public class TransitionManager : Singleton<TransitionManager>
     private void OnEnable()
     {
         EventHandler.GameStateChangedEvent += OnGameStateChangedEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.GameStateChangedEvent -= OnGameStateChangedEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
-    private void Start()
-    {
-        StartCoroutine(TransitionToScene(string.Empty, startScene));
-    }
+    // private void Start()
+    // {
+    //     StartCoroutine(TransitionToScene(string.Empty, startScene));
+    // }
     
     private void OnGameStateChangedEvent(GameState gameState)
     {
         canTransition = gameState == GameState.Playing;
+    }
+    
+    private void OnStartNewGameEvent(int gameWeek)
+    {
+        StartCoroutine(TransitionToScene("Menu", startScene));
     }
 
     public void Transition(string from, string to)

@@ -18,6 +18,7 @@ public class ObjectManager : MonoBehaviour
         EventHandler.BeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent += OnUpdateUIEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnDisable()
@@ -25,6 +26,7 @@ public class ObjectManager : MonoBehaviour
         EventHandler.BeforeSceneUnloadEvent -= OnBeforeSceneUnloadEvent;
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
     //场景切换前 保存
@@ -71,5 +73,11 @@ public class ObjectManager : MonoBehaviour
         {
             itemAvailableDict[itemDetails.itemName] = false;
         }
+    }
+    
+    private void OnStartNewGameEvent(int gameWeek)
+    {
+        itemAvailableDict.Clear();
+        interactiveStateDict.Clear();
     }
 }
