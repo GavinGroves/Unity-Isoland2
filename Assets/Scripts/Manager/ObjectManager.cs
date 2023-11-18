@@ -32,24 +32,28 @@ public class ObjectManager : MonoBehaviour
     //场景切换前 保存
     private void OnBeforeSceneUnloadEvent()
     {
+        //一些变换是切换场景后进行，所以卸载场景也要保存一次
         foreach (var item in FindObjectsOfType<Item>())
         {
             if (!itemAvailableDict.ContainsKey(item.itemName))
                 itemAvailableDict.Add(item.itemName, true);
         }
 
-        foreach (var item in FindObjectsOfType<Interactive>())
+        foreach (var interactive in FindObjectsOfType<Interactive>())
         {
-            if (interactiveStateDict.ContainsKey(item.name))
-                interactiveStateDict[item.name] = item.isDone;
+            if (interactiveStateDict.ContainsKey(interactive.name))
+                interactiveStateDict[interactive.name] = interactive.isDone;
             else
-                interactiveStateDict.Add(item.name, item.isDone);
+                interactiveStateDict.Add(interactive.name, interactive.isDone);
         }
     }
 
-    //场景切换后 加载
+    /// <summary>
+    /// 场景切换后 加载
+    /// </summary>
     private void OnAfterSceneLoadedEvent()
     {
+        //切换后的场景会判断 场景中的物体有没有添加进字典 ， 已经有了就判断激活状态
         foreach (var item in FindObjectsOfType<Item>())
         {
             if (!itemAvailableDict.ContainsKey(item.itemName))
@@ -58,23 +62,24 @@ public class ObjectManager : MonoBehaviour
                 item.gameObject.SetActive(itemAvailableDict[item.itemName]);
         }
 
-        foreach (var item in FindObjectsOfType<Interactive>())
+        foreach (var interactive in FindObjectsOfType<Interactive>())
         {
-            if (interactiveStateDict.ContainsKey(item.name))
-                item.isDone = interactiveStateDict[item.name];
-            else 
-                interactiveStateDict[item.name] = item.isDone;
+            if (interactiveStateDict.ContainsKey(interactive.name))
+                interactive.isDone = interactiveStateDict[interactive.name];
+            else
+                interactiveStateDict[interactive.name] = interactive.isDone;
         }
     }
-
+    
     private void OnUpdateUIEvent(ItemDetails itemDetails, int index)
     {
+        //拾取物体后，字典保存的场景Item状态就为FALSE
         if (itemDetails != null)
         {
             itemAvailableDict[itemDetails.itemName] = false;
         }
     }
-    
+
     private void OnStartNewGameEvent(int gameWeek)
     {
         itemAvailableDict.Clear();

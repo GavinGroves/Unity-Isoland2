@@ -4,13 +4,22 @@ namespace Utilities
 {
     public static class EventHandler
     {
+        /// <summary>
+        /// UI更新事件
+        /// </summary>
         public static event Action<ItemDetails, int> UpdateUIEvent;
 
+        /// <summary>
+        /// 呼叫UI更新事件
+        /// </summary>
         public static void CallUpdateUIEvent(ItemDetails itemDetails, int index)
         {
             UpdateUIEvent?.Invoke(itemDetails, index);
         }
 
+        /// <summary>
+        /// 卸载场景之前
+        /// </summary>
         public static event Action BeforeSceneUnloadEvent;
 
         public static void CallBeforeSceneUnloadEvent()
@@ -18,6 +27,9 @@ namespace Utilities
             BeforeSceneUnloadEvent?.Invoke();
         }
 
+        /// <summary>
+        /// 载入场景之后
+        /// </summary>
         public static event Action AfterSceneLoadedEvent;
 
         public static void CallAfterSceneLoadEvent()
@@ -25,22 +37,40 @@ namespace Utilities
             AfterSceneLoadedEvent?.Invoke();
         }
 
+        /// <summary>
+        /// 物品被选择事件
+        /// </summary>
         public static event Action<ItemDetails, bool> ItemSelectedEvent;
 
+        /// <summary>
+        /// 呼叫物品被选择事件
+        /// </summary>
         public static void CallItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
         {
             ItemSelectedEvent?.Invoke(itemDetails, isSelected);
         }
 
+        /// <summary>
+        /// 物品被使用事件
+        /// </summary>
         public static event Action<ItemName> ItemUsedEvent;
 
+        /// <summary>
+        /// 呼叫物品被使用事件
+        /// </summary>
         public static void CallItemUsedEvent(ItemName itemName)
         {
             ItemUsedEvent?.Invoke(itemName);
         }
 
+        /// <summary>
+        /// 多物品切换 UI物品变换事件
+        /// </summary>
         public static event Action<int> ChangeItemEvent;
 
+        /// <summary>
+        /// 呼叫 多物品切换 UI物品变换事件
+        /// </summary>
         public static void CallChangeItemEvent(int index)
         {
             ChangeItemEvent?.Invoke(index);

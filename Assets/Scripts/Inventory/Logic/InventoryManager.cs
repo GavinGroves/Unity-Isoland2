@@ -40,6 +40,7 @@ public class InventoryManager : Singleton<InventoryManager>
         }
         else
         {
+            //有多个物体，那么就逐一添加进去
             for (int i = 0; i < itemList.Count; i++)
             {
                 EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]), i);
@@ -47,6 +48,10 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    /// <summary>
+    /// 左右按钮切换 物品UI显示
+    /// </summary>
+    /// <param name="index">传入物品的索引</param>
     private void OnChangeItemEvent(int index)
     {
         if (index >= 0 && index < itemList.Count)
@@ -58,10 +63,18 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void OnItemUsedEvent(ItemName itemName)
     {
-        // itemList.Remove(itemName);
         var index = GetItemIndex(itemName);
         itemList.RemoveAt(index);
 
+        if (itemList.Count != 0)
+        {
+            for (int i = 0; i < itemList.Count; i++)
+            {
+                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]),i);
+            }
+        }
+        
+        //包里没有东西
         if (itemList.Count == 0)
             EventHandler.CallUpdateUIEvent(null, -1);
     }
@@ -75,6 +88,9 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    /// <summary>
+    /// 返回物品对应的序号
+    /// </summary>
     private int GetItemIndex(ItemName itemName)
     {
         for (int i = 0; i < itemList.Count; i++)
@@ -84,5 +100,10 @@ public class InventoryManager : Singleton<InventoryManager>
         }
 
         return -1;
+    }
+
+    public int GetListCount()
+    {
+        return itemList.Count;
     }
 }

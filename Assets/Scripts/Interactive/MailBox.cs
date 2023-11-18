@@ -23,6 +23,7 @@ public class MailBox : Interactive
         collider2D = GetComponent<Collider2D>();
     }
     
+    //进入场景后 场景状态 加载显示
     private void OnAfterSceneLoadedEvent()
     {
         if (!isDone)

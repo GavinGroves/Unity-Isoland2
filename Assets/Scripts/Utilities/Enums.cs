@@ -2,7 +2,7 @@ namespace Utilities
 {
     public enum ItemName
     {
-        None,Key,Ticket
+        None,Key,Ticket,Book
     }
 
     // public enum GlobalTag

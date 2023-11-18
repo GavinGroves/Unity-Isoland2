@@ -753,6 +753,10 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   gameData: {fileID: 11400000, guid: 3f0c534b78dd88743886e332cee66fc2, type: 2}
+  gameDataArray:
+  - {fileID: 11400000, guid: 3f0c534b78dd88743886e332cee66fc2, type: 2}
+  - {fileID: 11400000, guid: bdc8eec2d40a97b40ae138909d984557, type: 2}
+  - {fileID: 11400000, guid: 60294748e327c5847920b98939f0ddd0, type: 2}
   holderTransforms:
   - {fileID: 2100318824}
   - {fileID: 1644903275}
