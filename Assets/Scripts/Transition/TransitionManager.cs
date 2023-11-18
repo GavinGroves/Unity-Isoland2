@@ -67,9 +67,11 @@ public class TransitionManager : Singleton<TransitionManager>
         yield return SceneManager.LoadSceneAsync(to, LoadSceneMode.Additive);
 
         //设置新场景为激活场景
-        var newScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
-        SceneManager.SetActiveScene(newScene);
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));
 
+        if (from == "Menu")
+            EventHandler.CallMenuAfterSceneLoadedEvent();
+        
         EventHandler.CallAfterSceneLoadEvent();
         yield return Fade(0);
     }

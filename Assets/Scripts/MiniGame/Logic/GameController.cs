@@ -10,7 +10,7 @@ public class GameController : Singleton<GameController>
     [Header("游戏数据")] public GameH2A_SO gameData;
     public GameH2A_SO[] gameDataArray;
 
-    public Transform[] holderTransforms;
+    public Transform[] holderTransforms;//7
 
     public GameObject lineParent;
 
@@ -28,11 +28,11 @@ public class GameController : Singleton<GameController>
         EventHandler.CheckGameStateEvent -= OnCheckGameStateEvent;
     }
 
-    private void Start()
-    {
-        DrawLine();
-        CreateBall();
-    }
+    // private void Start()
+    // {
+    //     DrawLine();
+    //     CreateBall();
+    // }
 
     private void OnCheckGameStateEvent()
     {

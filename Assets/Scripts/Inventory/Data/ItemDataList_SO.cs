@@ -11,6 +11,9 @@ public class ItemDataList_SO : ScriptableObject
     public ItemDetails GetItemDetails(ItemName itemName)
     {
         return itemDetailsList.Find(i => i.itemName == itemName);
+        //return itemDetailsList.Find((ItemDetails i) => {
+        //    return i.itemName == itemName;
+        //});
     }
 }
 

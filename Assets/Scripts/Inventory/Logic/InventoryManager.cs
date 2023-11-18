@@ -15,7 +15,7 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
         EventHandler.ChangeItemEvent += OnChangeItemEvent;
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventHandler.MenuAfterSceneLoadedEvent += OnMenuAfterSceneLoadedEvent;
         EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
@@ -23,8 +23,13 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         EventHandler.ItemUsedEvent -= OnItemUsedEvent;
         EventHandler.ChangeItemEvent -= OnChangeItemEvent;
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventHandler.MenuAfterSceneLoadedEvent -= OnMenuAfterSceneLoadedEvent;
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+    }
+
+    private void Start()
+    {
+        EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(ItemName.None), 0);
     }
 
     private void OnStartNewGameEvent(int obj)
@@ -32,7 +37,7 @@ public class InventoryManager : Singleton<InventoryManager>
         itemList.Clear();
     }
 
-    private void OnAfterSceneLoadedEvent()
+    private void OnMenuAfterSceneLoadedEvent()
     {
         if (itemList.Count == 0)
         {
@@ -70,10 +75,10 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             for (int i = 0; i < itemList.Count; i++)
             {
-                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]),i);
+                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]), i);
             }
         }
-        
+
         //包里没有东西
         if (itemList.Count == 0)
             EventHandler.CallUpdateUIEvent(null, -1);
@@ -93,13 +98,14 @@ public class InventoryManager : Singleton<InventoryManager>
     /// </summary>
     private int GetItemIndex(ItemName itemName)
     {
-        for (int i = 0; i < itemList.Count; i++)
-        {
-            if (itemList[i] == itemName)
-                return i;
-        }
-
-        return -1;
+        // for (int i = 0; i < itemList.Count; i++)
+        // {
+        //     if (itemList[i] == itemName)
+        //         return i;
+        // }
+        //
+        // return -1;
+        return itemList.IndexOf(itemName);
     }
 
     public int GetListCount()

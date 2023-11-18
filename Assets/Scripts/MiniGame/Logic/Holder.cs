@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
+using DG.Tweening;
 
 public class Holder : Interactive
 {
@@ -11,6 +12,10 @@ public class Holder : Interactive
     
     public HashSet<Holder> linkHolders = new HashSet<Holder>();
     public bool isEmpty;
+    
+    [Header("ball移动速度")]
+    [Range(0f, 2f)]
+    public float duration = 0.2f;
 
     public void CheckBall(Ball ball)
     {
@@ -34,8 +39,10 @@ public class Holder : Interactive
             if (holder.isEmpty)
             {
                 //移动球
-                currentBall.transform.position = holder.transform.position;
+                // currentBall.transform.position = holder.transform.position;
+                currentBall.transform.DOMove(holder.transform.position, duration);
                 currentBall.transform.SetParent(holder.transform);
+                
 
                 //交换球
                 holder.CheckBall(currentBall);

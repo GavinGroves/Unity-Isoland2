@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Utilities
 {
@@ -35,6 +36,12 @@ namespace Utilities
         public static void CallAfterSceneLoadEvent()
         {
             AfterSceneLoadedEvent?.Invoke();
+        }
+        
+        public static event Action MenuAfterSceneLoadedEvent;
+        public static void CallMenuAfterSceneLoadedEvent()
+        {
+            MenuAfterSceneLoadedEvent?.Invoke();
         }
 
         /// <summary>
@@ -109,6 +116,13 @@ namespace Utilities
         public static void CallStartNewGameEvent(int gameWeek)
         {
             StartNewGameEvent?.Invoke(gameWeek);
+        }
+        
+        //拾取道具动画
+        public static event Action<Vector2, Sprite, ItemName> UpdateUIMoveEvent;
+        public static void CallUpdateUIMoveEvent(Vector2 itemPos, Sprite itemImage, ItemName itemName)
+        {
+            UpdateUIMoveEvent?.Invoke(itemPos, itemImage, itemName);
         }
     }
 }

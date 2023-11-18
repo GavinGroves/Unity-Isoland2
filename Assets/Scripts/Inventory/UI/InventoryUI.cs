@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
@@ -9,19 +8,24 @@ public class InventoryUI : MonoBehaviour
     public Button leftButton, rightButton;
     public SlotUI slotUI;
     public int currentIndex; // 显示UI当前物品序号
-    public int  b;
+    public Image propImage;
 
+    [Header("拾取道具速度")]
+    [Range(0f, 5f)]
+    public float duration = 1f;
     private void OnEnable()
     {
         EventHandler.UpdateUIEvent += OnUpdateUIEvent;
+        EventHandler.UpdateUIMoveEvent += OnUpdateUIMoveEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
+        EventHandler.UpdateUIMoveEvent -= OnUpdateUIMoveEvent;
     }
 
-   private void OnUpdateUIEvent(ItemDetails itemDetails, int index)
+    private void OnUpdateUIEvent(ItemDetails itemDetails, int index)
     {
         if (itemDetails == null)
         {
@@ -34,28 +38,17 @@ public class InventoryUI : MonoBehaviour
         {
             currentIndex = index;
             slotUI.SetItem(itemDetails);
-            
-            if (index > b)
-            {
-                b = currentIndex;
-            }
-            
-            //每次添加一个物品都是显示最新的，所以右键是FALSE的
-            if (index > 0)
-            {
-                leftButton.interactable = true;
-                if (index == b)
-                {
-                    leftButton.interactable = true;
-                    rightButton.interactable = false;
-                }
-            }
-            
-            if (index == -1)
-            {
-                leftButton.interactable = false;
-                rightButton.interactable = false;
-            }
+
+            // 更新左右按钮的交互状态
+            var TOTAL_ITEMS = InventoryManager.Instance.GetListCount();
+            leftButton.interactable = index > 0;
+           rightButton.interactable = index < TOTAL_ITEMS - 1;
+
+            // if (index == -1)
+            // {
+            //     leftButton.interactable = false;
+            //     rightButton.interactable = false;
+            // }
         }
     }
 
@@ -66,51 +59,49 @@ public class InventoryUI : MonoBehaviour
     /// <param name="amount">左-1 右+1</param>
     public void SwitchItem(int amount)
     {
+        var listCount = InventoryManager.Instance.GetListCount();
         var index = currentIndex + amount;
-        if (index > currentIndex)
-        {
-            leftButton.interactable = true;
-            rightButton.interactable = false;
-        }
-        else if (index < currentIndex)
-        {
-            leftButton.interactable = false;
-            rightButton.interactable = true;
-        }
-        else //多于2个物体的情况
-        {
-            leftButton.interactable = true;
-            rightButton.interactable = true;
-        }
-        
+
+        // 确保 index 在合法范围内（0 到 TOTAL_ITEMS-1）
+        index = Mathf.Clamp(index, 0, listCount - 1);
+
+        // if (index > currentIndex)
+        // {
+        //     leftButton.interactable = true;
+        //     rightButton.interactable = false;
+        // }
+        // else if (index < currentIndex)
+        // {
+        //     leftButton.interactable = false;
+        //     rightButton.interactable = true;
+        // }
+        // else //多于2个物体的情况
+        // {
+        //     leftButton.interactable = true;
+        //     rightButton.interactable = true;
+        // }
+
         EventHandler.CallChangeItemEvent(index);
     }
 
-    public void UpdateButtonDisplay(int index)
+    /// <summary>
+    /// 拾取道具的移动动画
+    /// </summary>
+    /// <param name="itemPos"></param>
+    /// <param name="itemImage"></param>
+    /// <param name="itemName"></param>
+    private void OnUpdateUIMoveEvent(Vector2 itemPos, Sprite itemImage, ItemName itemName)
     {
-        var total = InventoryManager.Instance.GetListCount();
+        propImage.gameObject.SetActive(true);
+        propImage.transform.position = itemPos;
+        propImage.sprite = itemImage;
+        propImage.SetNativeSize();
 
-        if (index <= 0)
-        {
-            leftButton.interactable = false;
-            if (total <= 1)
+        propImage.transform.DOMove(transform.position, duration).OnComplete(
+            () =>
             {
-                rightButton.interactable = false;
-            }
-            else
-            {
-                rightButton.interactable = true;
-            }
-        }
-        else if (index >= total - 1)
-        {
-            leftButton.interactable = true;
-            rightButton.interactable = false;
-        }
-        else
-        {
-            leftButton.interactable = true;
-            rightButton.interactable = true;
-        }
+                propImage.gameObject.SetActive(false);
+                InventoryManager.Instance.AddItem(itemName);
+            });
     }
 }
