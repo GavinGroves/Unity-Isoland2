@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SaveLoad;
 using Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,9 +11,9 @@ using EventHandler = Utilities.EventHandler;
 /// <summary>
 /// 场景切换管理器
 /// </summary>
-public class TransitionManager : Singleton<TransitionManager>
+public class TransitionManager : Singleton<TransitionManager>,ISaveable
 {
-    [SceneName] public string startScene;
+    public string startScene;
     public CanvasGroup fadeCanvasGroup;
     public float fadeDuration;
 
@@ -31,10 +32,13 @@ public class TransitionManager : Singleton<TransitionManager>
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
-    // private void Start()
-    // {
-    //     StartCoroutine(TransitionToScene(string.Empty, startScene));
-    // }
+    private void Start()
+    {
+        //保存数据
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
+        // StartCoroutine(TransitionToScene(string.Empty, startScene));
+    }
     
     private void OnGameStateChangedEvent(GameState gameState)
     {
@@ -95,5 +99,17 @@ public class TransitionManager : Singleton<TransitionManager>
 
         fadeCanvasGroup.blocksRaycasts = false;
         isFade = false;
+    }
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.currentScene = SceneManager.GetActiveScene().name;
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        Transition("Menu",saveData.currentScene);
     }
 }

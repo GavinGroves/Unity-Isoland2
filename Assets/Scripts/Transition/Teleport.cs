@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
-    [SceneName] [SerializeField] private string sceneFrom;
-    [SceneName] [SerializeField] private string sceneToGo;
+     [SerializeField] private string sceneFrom;
+     [SerializeField] private string sceneToGo;
 
     public void TeleportToScene()
     {

@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SaveLoad;
 using UnityEngine;
 using Utilities;
 using EventHandler = Utilities.EventHandler;
 
-public class ObjectManager : MonoBehaviour
+public class ObjectManager : MonoBehaviour,ISaveable
 {
     //场景物品存储
     private Dictionary<ItemName, bool> itemAvailableDict = new Dictionary<ItemName, bool>();
@@ -19,6 +20,7 @@ public class ObjectManager : MonoBehaviour
         EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent += OnUpdateUIEvent;
         EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+        EventHandler.ItemUsedEvent += OnItemUsedEvent;
     }
 
     private void OnDisable()
@@ -27,6 +29,29 @@ public class ObjectManager : MonoBehaviour
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+        EventHandler.ItemUsedEvent += OnItemUsedEvent;
+    }
+
+    private void Start()
+    {
+        //保存数据
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
+    }
+    
+    private void OnItemUsedEvent(ItemName obj)
+    {
+        foreach (var interactive in FindObjectsOfType<Interactive>())
+        {
+            if (interactiveStateDict.ContainsKey(interactive.name))
+            {
+                interactiveStateDict[interactive.name] = interactive.isDone;
+            }
+            else
+            {
+               interactiveStateDict.Add(interactive.name, interactive.isDone);
+            }
+        }
     }
 
     //场景切换前 保存
@@ -84,5 +109,19 @@ public class ObjectManager : MonoBehaviour
     {
         itemAvailableDict.Clear();
         interactiveStateDict.Clear();
+    }
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.itemAvailableDict = this.itemAvailableDict;
+        saveData.interactiveStateDict = this.interactiveStateDict;
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        this.itemAvailableDict = saveData.itemAvailableDict;
+        this.interactiveStateDict = saveData.interactiveStateDict;
     }
 }

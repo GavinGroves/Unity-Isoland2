@@ -8,11 +8,11 @@ public class InventoryUI : MonoBehaviour
     public Button leftButton, rightButton;
     public SlotUI slotUI;
     public int currentIndex; // 显示UI当前物品序号
+    
     public Image propImage;
 
-    [Header("拾取道具速度")]
-    [Range(0f, 5f)]
-    public float duration = 1f;
+    [Header("拾取物品速度")] [Range(0f, 5f)] public float duration = 1f;
+
     private void OnEnable()
     {
         EventHandler.UpdateUIEvent += OnUpdateUIEvent;
@@ -40,9 +40,9 @@ public class InventoryUI : MonoBehaviour
             slotUI.SetItem(itemDetails);
 
             // 更新左右按钮的交互状态
-            var TOTAL_ITEMS = InventoryManager.Instance.GetListCount();
+            var listCount = InventoryManager.Instance.GetListCount();
             leftButton.interactable = index > 0;
-           rightButton.interactable = index < TOTAL_ITEMS - 1;
+            rightButton.interactable = index < listCount - 1;
 
             // if (index == -1)
             // {
@@ -62,7 +62,7 @@ public class InventoryUI : MonoBehaviour
         var listCount = InventoryManager.Instance.GetListCount();
         var index = currentIndex + amount;
 
-        // 确保 index 在合法范围内（0 到 TOTAL_ITEMS-1）
+        // 确保 index 在合法范围内（0 到 listCount）
         index = Mathf.Clamp(index, 0, listCount - 1);
 
         // if (index > currentIndex)
@@ -85,11 +85,8 @@ public class InventoryUI : MonoBehaviour
     }
 
     /// <summary>
-    /// 拾取道具的移动动画
+    /// 拾取物品动画
     /// </summary>
-    /// <param name="itemPos"></param>
-    /// <param name="itemImage"></param>
-    /// <param name="itemName"></param>
     private void OnUpdateUIMoveEvent(Vector2 itemPos, Sprite itemImage, ItemName itemName)
     {
         propImage.gameObject.SetActive(true);

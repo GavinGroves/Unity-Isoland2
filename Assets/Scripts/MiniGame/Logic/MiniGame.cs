@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class MiniGame : MonoBehaviour
 {
     public UnityEvent OnGameFinish;
-    [SceneName] public string gameName;
+    public string gameName;
     public bool isPass;
 
     public void UpdateMiniGameState()

@@ -8,9 +8,9 @@ public class GameController : Singleton<GameController>
 {
     public UnityEvent OnFinish;
     [Header("游戏数据")] public GameH2A_SO gameData;
-    public GameH2A_SO[] gameDataArray;
+    public GameH2A_SO[] gameDataArray;//游戏周目
 
-    public Transform[] holderTransforms;//7
+    public Transform[] holderTransforms;//7个格子0-6
 
     public GameObject lineParent;
 

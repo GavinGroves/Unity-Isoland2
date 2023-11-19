@@ -36,25 +36,19 @@ MonoBehaviour:
   - from: 0
     to: 1
   - from: 0
+    to: 6
+  - from: 1
     to: 2
-  - from: 0
+  - from: 1
+    to: 6
+  - from: 2
     to: 3
-  - from: 0
-    to: 4
-  - from: 0
+  - from: 2
     to: 5
-  - from: 0
-    to: 6
-  - from: 1
-    to: 2
-  - from: 1
-    to: 3
-  - from: 1
-    to: 6
   - from: 3
     to: 4
   - from: 4
-    to: 6
+    to: 5
   - from: 5
     to: 6
-  startBallOrder: 00000000060000000500000004000000030000000200000001000000
+  startBallOrder: 00000000010000000200000005000000040000000300000006000000

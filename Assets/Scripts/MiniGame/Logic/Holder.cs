@@ -43,7 +43,6 @@ public class Holder : Interactive
                 currentBall.transform.DOMove(holder.transform.position, duration);
                 currentBall.transform.SetParent(holder.transform);
                 
-
                 //交换球
                 holder.CheckBall(currentBall);
                 this.currentBall = null;

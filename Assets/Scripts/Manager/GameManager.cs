@@ -1,21 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SaveLoad;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilities;
 using EventHandler = Utilities.EventHandler;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISaveable
 {
     private Dictionary<string, bool> miniGameStateDict = new Dictionary<string, bool>();
     private int gameWeek;
     private GameController currentGameController;
 
-    void Awake()
+    void Start()
     {
         SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
         EventHandler.CallGameStateChangedEvent(GameState.Playing);
+
+        //保存数据
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
     }
 
     private void OnEnable()
@@ -56,5 +61,19 @@ public class GameManager : MonoBehaviour
 
         currentGameController = FindObjectOfType<GameController>();
         currentGameController?.SetGameWeekData(gameWeek);
+    }
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.gameWeek = this.gameWeek;
+        saveData.miniGameStateDict = miniGameStateDict;
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        this.gameWeek = saveData.gameWeek;
+        miniGameStateDict = saveData.miniGameStateDict;
     }
 }

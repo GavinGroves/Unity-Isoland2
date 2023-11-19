@@ -158,6 +158,7 @@ MonoBehaviour:
   isDone: 0
   matchBall: 6
   isEmpty: 0
+  duration: 0.2
 --- !u!58 &117703102
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -276,6 +277,7 @@ MonoBehaviour:
   isDone: 0
   matchBall: 3
   isEmpty: 0
+  duration: 0.2
 --- !u!58 &200096047
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -610,6 +612,7 @@ MonoBehaviour:
   isDone: 0
   matchBall: 2
   isEmpty: 0
+  duration: 0.2
 --- !u!58 &742641679
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -752,7 +755,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  gameData: {fileID: 11400000, guid: 3f0c534b78dd88743886e332cee66fc2, type: 2}
+  gameData: {fileID: 0}
   gameDataArray:
   - {fileID: 11400000, guid: 3f0c534b78dd88743886e332cee66fc2, type: 2}
   - {fileID: 11400000, guid: bdc8eec2d40a97b40ae138909d984557, type: 2}
@@ -803,6 +806,7 @@ MonoBehaviour:
   isDone: 0
   matchBall: 4
   isEmpty: 0
+  duration: 0.2
 --- !u!58 &1068106000
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1130,6 +1134,7 @@ MonoBehaviour:
   isDone: 0
   matchBall: 5
   isEmpty: 0
+  duration: 0.2
 --- !u!58 &1539483804
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1248,6 +1253,7 @@ MonoBehaviour:
   isDone: 0
   matchBall: 1
   isEmpty: 0
+  duration: 0.2
 --- !u!58 &1644903273
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1480,3 +1486,4 @@ MonoBehaviour:
   isDone: 0
   matchBall: 0
   isEmpty: 0
+  duration: 0.2

@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SaveLoad;
 using Tools;
 using UnityEngine;
 using Utilities;
 using EventHandler = Utilities.EventHandler;
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>, ISaveable
 {
     public ItemDataList_SO itemData;
     [SerializeField] private List<ItemName> itemList = new List<ItemName>();
@@ -29,6 +30,9 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void Start()
     {
+        //保存数据
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
         EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(ItemName.None), 0);
     }
 
@@ -111,5 +115,17 @@ public class InventoryManager : Singleton<InventoryManager>
     public int GetListCount()
     {
         return itemList.Count;
+    }
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.itemList = this.itemList;
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        this.itemList = saveData.itemList;
     }
 }

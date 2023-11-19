@@ -111,6 +111,7 @@ namespace Utilities
             GamePassEvent?.Invoke(gameName);
         }
 
+        //开始新游戏，清空所有数据
         public static event Action<int> StartNewGameEvent;
 
         public static void CallStartNewGameEvent(int gameWeek)
