@@ -12,8 +12,9 @@ public class ItemTooltip : MonoBehaviour
     {
         itemNameText.text = itemName switch
         {
-            ItemName.Key => "信箱钥匙",
+            ItemName.Key => "开锁道具",
             ItemName.Ticket => "一张船票",
+            ItemName.Book => "不明物体",
             _=>""
         };
         
