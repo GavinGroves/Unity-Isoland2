@@ -1,5 +1,5 @@
 # Unity-Isoland2 迷失岛2
-**点击指向 解密Demo Isoland2 **
+**点击指向 解密Demo Isoland2**
 
 - 切换场景
 - 背包系统
